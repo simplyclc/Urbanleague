@@ -1,0 +1,69 @@
+version: '3.1'
+
+networks:
+  urban-network:
+
+services:
+  #PHP Service
+  dsphp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: urban-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: urbanapp
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - urban-network
+
+  #Nginx Service
+  dswebserver:
+    image: nginx:alpine
+    container_name: urban-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5175:5175"
+      - "8000:8000"
+      - "443:443"
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - urban-network
+
+  #mongodb Service
+  dsdb:
+    image: mongo:5.0
+    container_name: urban-mongodb
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb:/var/lib/mongodb/data
+    environment:
+      MONGO_DATABASE: urbandb
+      MONGO_USER: phpmyadmin1
+      MONGO_INITDB_ROOT_USERNAME: AzureDiamond
+      MONGO_INITDB_ROOT_PASSWORD: hunter2
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mongo
+    networks:
+      - urban-network
+
+#Docker Networks
+networks:
+  urban-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
