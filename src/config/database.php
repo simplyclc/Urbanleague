@@ -73,7 +73,7 @@ return [
           'driver' => 'mongodb',
           'port' => env('DB_PORT', '27017'),
           'host' => env('DB_HOST', 'localhost'),
-          'database' => env('DB_DATABASE', 'dropshipdb'),
+          'database' => env('DB_DATABASE', 'urbandb'),
           'username' => env('DB_USERNAME', 'AzureDiamond'),
           'password' => env('DB_PASSWORD', 'hunter'),
           'options' => [
