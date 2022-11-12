@@ -65,7 +65,7 @@ return [
 
         'mongodb1' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_DSN', 'mongodb+srv://drop_sand_user_1:u5q4EGULBmL5ndIa@sandbox-dropship.b1ik2.mongodb.net/Sandbox_Database'),
+            'dsn' => env(''),
             'database' => env('DB_DATABASE', 'Sandbox_Database'),
         ],
 
