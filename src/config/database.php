@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,6 +61,26 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'mongodb1' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_DSN', 'mongodb+srv://drop_sand_user_1:u5q4EGULBmL5ndIa@sandbox-dropship.b1ik2.mongodb.net/Sandbox_Database'),
+            'database' => env('DB_DATABASE', 'Sandbox_Database'),
+        ],
+
+        'mongodb' => [
+          'driver' => 'mongodb',
+          'port' => env('DB_PORT', '27017'),
+          'host' => env('DB_HOST', 'localhost'),
+          'database' => env('DB_DATABASE', 'dropshipdb'),
+          'username' => env('DB_USERNAME', 'AzureDiamond'),
+          'password' => env('DB_PASSWORD', 'hunter'),
+          'options' => [
+            // here you can pass more settings to the Mongo Driver Manager
+            // see https://www.php.net/manual/en/mongodb-driver-manager.construct.php under "Uri Options" for a list of complete parameters that you can use
+            'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // required with Mongo 3+
+          ]
         ],
 
         'pgsql' => [
